@@ -1,29 +1,6 @@
-# import logging as log
-import sys
-
 import numpy as np
 import pandas as pd
 from ortools.linear_solver import pywraplp
-
-cities = {
-    0: "M.C.G.",
-    1: "Docklands",
-    2: "Adelaide Oval",
-    3: "Cazaly's Stadium",
-    4: "Manuka Oval",
-    5: "Perth Stadium",
-    6: "Gabba",
-    7: "S.C.G.",
-    8: "Bellerive Oval",
-    9: "Kardinia Park",
-    10: "Sydney",
-    11: "York Park",
-    12: "Eureka Stadium",
-    13: "Traeger Park",
-    14: "Carrara",
-    15: "Marrara Ovlal",
-    16: "Riverway Stadium",
-}
 
 
 def solve_OrTools(distances: np.ndarray):
@@ -133,7 +110,7 @@ def main():
     # check problem response
     if status == pywraplp.Solver.OPTIMAL:
         print(f'Objective value ={str(model.Objective().Value())}')
-        print_solution(u, cities)
+        print_solution(u, name_cities)
     elif status == pywraplp.Solver.INFEASIBLE:
         print("le probleme n'est pas solvable")
     else:
