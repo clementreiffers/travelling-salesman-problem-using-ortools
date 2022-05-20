@@ -1,9 +1,19 @@
 # travelling_salesman_problem_lp
 
-## Description
+travelling salesman problem using linear programming
 
-Travelling salesman problem made in python in linera programming using ortools.
+## notre tableur excel
 
-## Travelling salesman problem
+we have modified the first ligne of the Excel file, to beginning with Sydney.
 
-## Documentations
+## Modélisation de notre problème :
+
+- __objectif__ : min(distance)
+- __variables__ de decisions :
+- __contraintes__ :
+    - aller dans toutes les villes
+    - commencer / terminer par sydney
+
+
+
+
