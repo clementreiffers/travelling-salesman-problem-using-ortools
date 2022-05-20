@@ -75,13 +75,19 @@ def print_solution(u):
 def main():
     city_origin_name = "Sydney"
 
-    # Drop useless/empty rows
+    # Load dataset and drop useless/empty rows
     df = pd.read_excel("data.xlsx", "sheet1")
     df = df.dropna(how="all")
 
-    # Convert to numpy array and delete cities' name
+    name_cities = np.array(df.head(1)) # Get cities name
+    name_cities = np.array(name_cities[0]) # Reshape array
+    name_cities = np.delete(name_cities, 0, axis=0) # Drop nan value
+    print(name_cities) # Show cities names
+
+    # Convert to numpy array
     dima = np.array(df)
 
+    # Get index of the city you want to start
     city_index = -1
     for i in range(len(dima)):
         if dima[i][0] == city_origin_name:
@@ -90,6 +96,7 @@ def main():
         print("Error city not found")
         exit(1)
 
+    # Delete cities' name
     dima = np.delete(dima, 0, axis=1)
     dima = np.delete(dima, 0, axis=0)
     city_index -= 1
