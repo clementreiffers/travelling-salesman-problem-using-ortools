@@ -1,6 +1,6 @@
-# travelling_salesman_problem_lp
+# travelling-salesman-problem-using-ortools
 
-Travelling salesman problem solver using linear programming with Google Or-Tools.
+Travelling salesman problem solver using linear programming and rooting with Google Or-Tools.
 
 ## Description
 
@@ -35,7 +35,8 @@ pip install -r requirements.txt
 
 You can then start the program by double-clicking the main.py file.
 
-If you want to change the excel file to use or change the city to begin with in your tsp. Just change the last line of the main.py file.
+If you want to change the Excel file to use or change the city to begin with in your tsp. 
+Just change the last line of the main.py file.
 
 ```py
 if __name__ == '__main__':
@@ -51,7 +52,7 @@ if __name__ == '__main__':
 
 ## Program implementation
 
-### Strcuture
+### Program Structure
 
 The program is made only of one file, the "main.py" file.
 
@@ -59,27 +60,28 @@ The python file load the dataset and then proceed all the linear programming cal
 
 ### Excel data
 
-Our project contains a excel file that is load by our app.
-The excel contains the distances of all cities relativeness from each other.
+Our project contains an Excel file that is load by our app.
+The Excel contains the distances of all cities' relatives from each other.
 
 **CSV Example :**
 
-|  |M.C.G.|Docklands|Adelaide Oval|
+| |M.C.G.|Docklands|Adelaide Oval|
 |--|--|--|--|
-|M.C.G.|  0| 3 |657 |
+|M.C.G.| 0| 3 |657 |
 |Docklands| 3|0 |654 |
 |Adelaide Oval| 657|654|0|
 
-The excel is loaded in our app and it will search the city by the name you set in the variable `city_origin_name`. This name will be used to move the row of the city at the beginning of our project.
+The excel is loaded in our app and it will search the city by the name you set in the variable `city_origin_name`. This
+name will be used to move the row of the city at the beginning of our project.
 
 For example, if you want to begin your travel from Adelaide Oval, the data will look like below :
 
 **CSV Example :**
 
-|  |M.C.G.|Docklands|Adelaide Oval|
+| |M.C.G.|Docklands|Adelaide Oval|
 |--|--|--|--|
 |Adelaide Oval| 657|654|0|
-|M.C.G.|  0| 3 |657 |
+|M.C.G.| 0| 3 |657 |
 |Docklands| 3|0 |654 |
 
 ### Linear Programming
@@ -97,7 +99,8 @@ Sydney->S.C.G.->Carrara->Gabba->Riverway Stadium->Cazaly's Stadium->Marrara Oval
 
 ### Routing implementation
 
-To verify the app output result. We create a file named `example_with_routings.py` that will solve our tsp problem but by using routing.
+To verify the app output result. We create a file named `example_with_routings.py` that will solve our tsp problem but
+by using routing.
 
 Output :
 
