@@ -3,6 +3,7 @@ import sys
 
 import numpy as np
 # also required packages: openpyxl
+import pandas as pd
 from ortools.linear_solver import pywraplp
 
 
@@ -86,6 +87,16 @@ def main():
         datefmt='%Y-%m-%d %H:%M:%S',
         stream=sys.stdout)
 
+    # Drop useless lines
+    df = pd.read_excel("data.xlsx", "sheet1")
+    df = df.dropna(how="all")
+
+    # Convert to numpy array and delete cities' name
+    test_dima = np.array(df)
+    test_dima = np.delete(test_dima, 0, axis=1)
+    test_dima = np.delete(test_dima, 0, axis=0)
+    print(test_dima)
+
     dima = np.array([
         [0, 3, 657, 2326, 464, 2724, 1375, 713, 598, 67, 705, 442, 105, 1893, 1343, 3157, 2067],
         [3, 0, 654, 2326, 467, 2721, 1376, 716, 599, 64, 708, 443, 102, 1891, 1345, 3156, 2067],
@@ -114,6 +125,8 @@ def main():
         [2067, 2067, 1912, 285, 1797, 3384, 1114, 1682, 2623, 2110, 1673, 2461, 2048, 1418, 1180,
          1862, 0]
     ])
+
+    dima = test_dima
 
     # now solve problem
     u, model, status = solve_OrTools(dima)
