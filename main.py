@@ -81,7 +81,6 @@ def main():
     name_cities = np.array(df.head(1))  # Get cities name
     name_cities = np.array(name_cities[0])  # Reshape array
     name_cities = np.delete(name_cities, 0, axis=0)  # Drop nan value
-    print(name_cities)  # Show cities names
 
     # Convert to numpy array
     dima = np.array(df)
