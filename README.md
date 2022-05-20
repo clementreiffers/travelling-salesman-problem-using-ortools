@@ -20,6 +20,10 @@ another take more or less time than other depending on the distance.
 
 ### Problem modelisation
 
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/59691442/169556846-231900f0-2195-478d-be14-0990f52ea1b4.png" alt="tspExampleImage" style="height:400px"/>
+</p>
+
 <!-- ### Modélisation de notre problème
 
 __objectif__ : min(distance)
