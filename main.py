@@ -21,7 +21,7 @@ cities = {
     12: "Eureka Stadium",
     13: "Traeger Park",
     14: "Carrara",
-    15: "Marrara Oval",
+    15: "Marrara Ovlal",
     16: "Riverway Stadium",
 }
 
@@ -87,11 +87,12 @@ def solve_OrTools(distances: np.ndarray):
 def print_solution(u, cities):
     num_nodes = len(u)
     all_nodes = range(num_nodes)
-    solution = {int(u[i].solution_value()):i for i in all_nodes}
+    solution = {int(u[i].solution_value()): i for i in all_nodes}
     solution = sorted(solution.items())
     for i in solution:
-        print(f"{i[1]}->", end="")
-    print(solution[0][1])
+        print(f"{cities[i[1]]}->", end="")
+    print(cities[solution[0][1]])
+
 
 def main():
     city_origin_name = "Sydney"
@@ -100,10 +101,10 @@ def main():
     df = pd.read_excel("data.xlsx", "sheet1")
     df = df.dropna(how="all")
 
-    name_cities = np.array(df.head(1)) # Get cities name
-    name_cities = np.array(name_cities[0]) # Reshape array
-    name_cities = np.delete(name_cities, 0, axis=0) # Drop nan value
-    print(name_cities) # Show cities names
+    name_cities = np.array(df.head(1))  # Get cities name
+    name_cities = np.array(name_cities[0])  # Reshape array
+    name_cities = np.delete(name_cities, 0, axis=0)  # Drop nan value
+    print(name_cities)  # Show cities names
 
     # Convert to numpy array
     dima = np.array(df)
