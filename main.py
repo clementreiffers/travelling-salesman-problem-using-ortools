@@ -32,23 +32,24 @@ def solve_OrTools(distances: np.ndarray):
     # on initialise les variables de decision
     u = {i: model.IntVar(0, nombre_de_villes, f"u_i{i}") for i in index_villes}
 
-    # on veut un seul successeur
+    # contrainte : on veut un seul successeur
     for i in index_villes:
         model.Add(sum(x[(i, j)] for j in index_villes) == 1)
 
-    # on veut un seul prédécesseur
+    # contrainte : on veut un seul prédécesseur
     for j in index_villes:
         model.Add(sum(x[(i, j)] for i in index_villes) == 1)
 
-    # constraint 3.1: subtour elimination constraints (Miller-Tucker-Zemlin) part 1
+    # ici on vérifie que l'on fait bien une seule fois le tour
+    # contrainte : on commence par la premiere ville
     model.Add(u[0] == 1)
 
-    # constraint 3.2: subtour elimination constraints (Miller-Tucker-Zemlin) part 2
+    # on crée un chemin avec toutes les villes, (donc en ne partant pas de la première sinon ça fait doublon et on
+    # ne veut pas)
     for i in index_villes_sauf_premiere:
         model.Add(u[i] >= 2)
         model.Add(u[i] <= nombre_de_villes)
 
-    # constraint 3.3: subtour elimination constraints (Miller-Tucker-Zemlin) part 3
     for i in index_villes_sauf_premiere:
         for j in index_villes_sauf_premiere:
             model.Add(u[i] - u[j] + 1 <= (nombre_de_villes - 1) * (1 - x[(i, j)]))
@@ -62,26 +63,29 @@ def solve_OrTools(distances: np.ndarray):
 
 
 def print_solution(u, cities):
+    """
+    :param u: tous les nœuds
+    :param cities: le tableau qu'on a récupéré de toutes les villes
+    :return: None
+    """
     num_nodes = len(u)
     all_nodes = range(num_nodes)
     solution = {int(u[i].solution_value()): i for i in all_nodes}
     solution = sorted(solution.items())
+    print("\nvilles dans l'ordre : ")
     for i in solution:
         print(f"{cities[i[1]]}->", end="")
     print(cities[solution[0][1]])
 
 
-def main():
-    city_origin_name = "Sydney"
-
+def main(city_origin_name, filename):
     # Load dataset and drop useless/empty rows
-    df = pd.read_excel("data.xlsx", "sheet1")
+    df = pd.read_excel(filename, "sheet1")
     df = df.dropna(how="all")
 
     name_cities = np.array(df.head(1))  # Get cities name
     name_cities = np.array(name_cities[0])  # Reshape array
     name_cities = np.delete(name_cities, 0, axis=0)  # Drop nan value
-    print(name_cities)  # Show cities names
 
     # Convert to numpy array
     dima = np.array(df)
@@ -101,8 +105,8 @@ def main():
     city_index -= 1
 
     # Swap city origin tsp to position row 0 of array
-    dima[[0, city_index]] = dima[[city_index, 0]] # Distance array
-    name_cities[[0, city_index]] = name_cities[[city_index, 0]] # Cities' name array
+    dima[[0, city_index]] = dima[[city_index, 0]]  # Distance array
+    name_cities[[0, city_index]] = name_cities[[city_index, 0]]  # Cities' name array
 
     # now solve problem
     u, model, status = solve_OrTools(dima)
@@ -119,4 +123,4 @@ def main():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    main()
+    main("Sydney", "data.xlsx")
