@@ -86,7 +86,7 @@ For example, if you want to begin your travel from Adelaide Oval, the data will 
 
 Linear programming implementation is completely set in the solve_OrTools function.
 
-Below is a part of the function solve_OrTools :
+Below is a part of the function solve :
 
 Output :
 
