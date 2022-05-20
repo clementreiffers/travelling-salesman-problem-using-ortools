@@ -2,23 +2,24 @@ import logging as log
 import sys
 
 import numpy as np
-# also required packages: openpyxl
 from ortools.linear_solver import pywraplp
 
 
-def solve_OrTools(dima:np.ndarray):
+def solve_OrTools(distances: np.ndarray):
     """
-    :param dima: the distance matrix
+    :param distances: la matrice avec toutes les distances
     :return:  solution X, model, status
     """
-
-    if dima.ndim != 2 or dima.shape[0] != dima.shape[1]:
+    # on vérifie que la matrice reçue a bien 2 dimensions et après que
+    # ses 2 dimensions contiennent le même nombre de distances, car on
+    # travaille avec une matrice carrée
+    if distances.ndim != 2 and distances.shape[0] != distances.shape[1]:
         raise ValueError("Invalid dima dimensions detected. Square matrix expected.")
 
-    # determine number of nodes
-    num_nodes = dima.shape[0]
-    all_nodes = range(num_nodes)
-    all_but_first_nodes = range(1, num_nodes)
+    # on détermine le nombre de nœuds
+    nombre_de_villes = distances.shape[0]
+    all_nodes = range(nombre_de_villes)
+    all_but_first_nodes = range(1, nombre_de_villes)
 
     # Create the model.
     solver_name = 'SCIP'
@@ -28,21 +29,21 @@ def solve_OrTools(dima:np.ndarray):
 
     log.info('Defining MIP model... ')
     # generating decision variables X_ij
-    log.info(f'Creating {str(num_nodes * num_nodes)} boolean x_ij variables... ')
+    log.info(f'Creating {str(nombre_de_villes * nombre_de_villes)} boolean x_ij variables... ')
     x = {}
     for i in all_nodes:
         for j in all_nodes:
             x[(i, j)] = model.BoolVar('x_i%ij%i' % (i, j))
 
-    log.info(f'Creating {str(num_nodes)} boolean u_i variables... ')
-    u = {i: model.IntVar(0, num_nodes, 'u_i%i' % i) for i in all_nodes}
+    log.info(f'Creating {str(nombre_de_villes)} boolean u_i variables... ')
+    u = {i: model.IntVar(0, nombre_de_villes, 'u_i%i' % i) for i in all_nodes}
     # constraint 1: leave every point exactly once
-    log.info(f'Creating {str(num_nodes)} Constraint 1... ')
+    log.info(f'Creating {str(nombre_de_villes)} Constraint 1... ')
     for i in all_nodes:
         model.Add(sum(x[(i, j)] for j in all_nodes) == 1)
 
     # constraint 2: reach every point from exactly one other point
-    log.info(f'Creating {str(num_nodes)} Constraint 2... ')
+    log.info(f'Creating {str(nombre_de_villes)} Constraint 2... ')
     for j in all_nodes:
         model.Add(sum(x[(i, j)] for i in all_nodes) == 1)
 
@@ -54,16 +55,16 @@ def solve_OrTools(dima:np.ndarray):
     log.info(f'Creating {len(all_but_first_nodes)} Constraint 3.2... ')
     for i in all_but_first_nodes:
         model.Add(u[i] >= 2)
-        model.Add(u[i] <= num_nodes)
+        model.Add(u[i] <= nombre_de_villes)
 
     # constraint 3.3: subtour elimination constraints (Miller-Tucker-Zemlin) part 3
     log.info(f'Creating {len(all_but_first_nodes)} Constraint 3.2... ')
     for i in all_but_first_nodes:
         for j in all_but_first_nodes:
-            model.Add(u[i] - u[j] + 1 <= (num_nodes - 1) * (1 - x[(i, j)]))
+            model.Add(u[i] - u[j] + 1 <= (nombre_de_villes - 1) * (1 - x[(i, j)]))
 
     # Minimize the total distance
-    model.Minimize(sum(x[(i, j)] * dima[(i, j)] for i in all_nodes for j in all_nodes))
+    model.Minimize(sum(x[(i, j)] * distances[(i, j)] for i in all_nodes for j in all_nodes))
 
     log.info('Solving MIP model... ')
     status = model.Solve()
