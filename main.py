@@ -3,7 +3,7 @@ import pandas as pd
 from ortools.linear_solver import pywraplp
 
 
-def solve_OrTools(distances: np.ndarray):
+def solve(distances: np.ndarray):
     """
     :param distances: la matrice avec toutes les distances
     :return:  solution X, model, status
@@ -109,7 +109,7 @@ def main(city_origin_name, filename):
     name_cities[[0, city_index]] = name_cities[[city_index, 0]]  # Cities' name array
 
     # now solve problem
-    u, model, status = solve_OrTools(dima)
+    u, model, status = solve(dima)
 
     # check problem response
     if status == pywraplp.Solver.OPTIMAL:
