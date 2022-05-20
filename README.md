@@ -51,13 +51,13 @@ if __name__ == '__main__':
 
 ## Program implementation
 
-## Algorithm
+### Strcuture
 
 The program is made only of one file, the "main.py" file.
 
 The python file load the dataset and then proceed all the linear programming calculs.
 
-## Excel data
+### Excel data
 
 Our project contains a excel file that is load by our app.
 The excel contains the distances of all cities relativeness from each other.
@@ -88,25 +88,6 @@ Linear programming implementation is completely set in the solve_OrTools functio
 
 Below is a part of the function solve_OrTools :
 
-<!--
-```py
-def solve_OrTools(distances: np.ndarray):
-    """
-    :param distances: la matrice avec toutes les distances
-    :return:  solution X, model, status
-    """
-    # on vérifie que la matrice reçue a bien 2 dimensions et après que
-    # ses 2 dimensions contiennent le même nombre de distances, car on
-    # travaille avec une matrice carrée
-    if distances.ndim != 2 and distances.shape[0] != distances.shape[1]:
-        raise ValueError("Invalid dima dimensions detected. Square matrix expected.")
-
-    # on détermine le nombre de villes et on cree des variables qui vont servir à itérer dessus
-    nombre_de_villes = distances.shape[0]
-    index_villes = range(nombre_de_villes)
-    index_villes_sauf_premiere = range(1, nombre_de_villes)
-```
--->
 Output :
 
 ```
@@ -114,7 +95,7 @@ villes dans l'ordre :
 Sydney->S.C.G.->Carrara->Gabba->Riverway Stadium->Cazaly's Stadium->Marrara Oval->Traeger Park->Perth Stadium->Adelaide Oval->Eureka Stadium->Kardinia Park->Bellerive Oval->York Park->Manuka Oval->M.C.G.->Docklands->Sydney
 ```
 
-## Routing implementation
+### Routing implementation
 
 To verify the app output result. We create a file named `example_with_routings.py` that will solve our tsp problem but by using routing.
 
