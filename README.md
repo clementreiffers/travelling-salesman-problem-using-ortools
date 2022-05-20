@@ -88,6 +88,7 @@ Linear programming implementation is completely set in the solve_OrTools functio
 
 Below is a part of the function solve_OrTools :
 
+<!--
 ```py
 def solve_OrTools(distances: np.ndarray):
     """
@@ -105,12 +106,25 @@ def solve_OrTools(distances: np.ndarray):
     index_villes = range(nombre_de_villes)
     index_villes_sauf_premiere = range(1, nombre_de_villes)
 ```
+-->
+Output :
+
+```
+villes dans l'ordre : 
+Sydney->S.C.G.->Carrara->Gabba->Riverway Stadium->Cazaly's Stadium->Marrara Oval->Traeger Park->Perth Stadium->Adelaide Oval->Eureka Stadium->Kardinia Park->Bellerive Oval->York Park->Manuka Oval->M.C.G.->Docklands->Sydney
+```
 
 ## Routing implementation
 
 To verify the app output result. We create a file named `example_with_routings.py` that will solve our tsp problem but by using routing.
 
-Output placeholder.
+Output :
+
+```
+Objective: 11669 miles
+Route for vehicle 0:
+ 0 -> 1 -> 9 -> 12 -> 2 -> 5 -> 13 -> 15 -> 3 -> 16 -> 6 -> 14 -> 7 -> 10 -> 4 -> 8 -> 11 -> 0
+```
 
 ## Contributors
 
