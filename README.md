@@ -2,29 +2,53 @@
 
 Travelling salesman problem solver using linear programming with Google Or-Tools.
 
-## Modélisation de notre problème
+## Description
+
+### Travelling Salesman Problem
+
+The Travelling Salesman Problem also known as TSP is an NP-hard problem in combinatorial optimization.  
+Imagine a set of city disposed on a map, you have a set of salesman (population) and they must all go to every city in
+the least amount of time/distance.  
+The optimization solution is the one where a salesman goes through all the cities with the least distance or/and time.
+
+In the image below you can see a representation of the tsp problem with cities named A, B, C, D. Going from a city to
+another take more or less time than other depending on the distance.
+
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/59691442/165635831-5bfc72b5-0dd3-4a9f-afb0-b5ffd402ee88.png" alt="tspExampleImage" style="height:400px"/>
+</p>
+
+### Problem modelisation
+
+<!-- ### Modélisation de notre problème
 
 __objectif__ : min(distance)
 
 __variables__ de decisions :
 
 __contraintes__ :
-    - aller dans toutes les villes
-    - commencer / terminer par sydney
-    - passer qu'une seule fois dans chaque ville (excepté la ville de départ, 2 fois)
+- aller dans toutes les villes
+- commencer / terminer par sydney
+- passer qu'une seule fois dans chaque ville (excepté la ville de départ, 2 fois) -->
 
-## Problem modelisation
+<!-- ## Problem modelisation
 
 __objectif__ : min(distance)
 
-__variables__ de decisions :
+__variables__ :
 
 __contraintes__ :
-    - aller dans toutes les villes
-    - commencer / terminer par sydney
-    - passer qu'une seule fois dans chaque ville (excepté la ville de départ, 2 fois)
+- aller dans toutes les villes
+- commencer / terminer par sydney
+- passer qu'une seule fois dans chaque ville (excepté la ville de départ, 2 fois) -->
 
-## Excel data
+## Program implementation
+
+## How it works
+
+Placeholder
+
+### Excel data
 
 Our project contains a excel file that is load by our app.
 The excel contains the distances of all cities relativeness from each other.
