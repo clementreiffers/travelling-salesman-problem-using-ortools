@@ -84,7 +84,7 @@ For example, if you want to begin your travel from Adelaide Oval, the data will 
 
 ### Linear Programming
 
-Linear programming implementation is completely set in the solve_OrTools function.
+Linear programming implementation is completely set in the solve function.
 
 Below is a part of the function solve :
 
